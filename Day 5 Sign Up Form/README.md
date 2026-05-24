@@ -1,34 +1,30 @@
 ﻿# Day 5 Sign Up Form
 
-A simple student sign up form built with HTML and CSS. This project practices form structure, input types, labels, native validation, and basic responsive styling.
+A simple HTML and CSS sign up form.
 
-## Features
+## Preview
 
-- Sign up form using `action="/register"` and `method="POST"`
+### Desktop
+
+![Desktop screenshot](assets/signup-form.png)
+
+### Mobile
+
+![Mobile screenshot](assets/signup-form-mobile.png)
+
+## Built With
+
+- HTML forms
+- CSS layout
+- Native form validation
+
+## Practice Focus
+
+- `form action="/register" method="POST"`
+- `label` + `input` connection
 - Text, email, password, date, radio, select, and textarea fields
-- Matching `label` and form control `id` values for better accessibility
-- HTML validation with `required`, `minlength`, and `maxlength`
-- Basic card layout with responsive spacing
-- Gender radio buttons aligned with Flexbox
+- Responsive form styling
 
-## Files
-
-```text
-Day 5 Sign Up Form/
-├── index.html
-└── style.css
-```
-
-## What I Practiced
-
-- How to wrap fields inside a `<form>` element
-- How `action`, `method`, and `class` work on a form
-- Why each input should have a `name` attribute
-- How to connect labels to inputs with `for` and `id`
-- How to style form controls without stretching radio buttons
-
-## How to Open
+## Open
 
 Open `index.html` in a browser.
-
-This form is a front-end practice project only. The `/register` form action is included for learning, but there is no backend server connected yet.
