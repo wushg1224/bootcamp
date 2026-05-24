@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="lesson-card">
+        <h1 id="pageTitle">Sign Up</h1>
+
+        <!-- 注册表单，POST提交，HTML5原生验证 -->
+        <form action="/register" method="POST" class="register-form">
+          <!-- username -->
+          <div>
+            <label for="username">Username</label>
+            <input
+              id="username"
+              autocomplete="off"
+              name="username"
+              type="text"
+              required
+              minlength="3"
+              maxlength="20"
+              placeholder="3-20 characters"
+            />
+          </div>
+
+          <!-- 名 -->
+          <div>
+            <label for="firstName">First name</label>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              placeholder="Example: Tina"
+              required
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- 姓 -->
+          <div>
+            <label for="lastName">Last name</label>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              autocomplete="off"
+              placeholder="Example: Gao"
+            />
+          </div>
+          <!-- 邮箱 -->
+          <div>
+            <label for="email">Email Address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="off"
+              placeholder="name@example.com"
+            />
+          </div>
+
+          <!-- 个人简介多行文本 -->
+          <div>
+            <label for="about">About Me</label>
+            <textarea id="about" name="about"></textarea>
+          </div>
+
+          <!-- 密码 安全属性 -->
+          <div>
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <!-- 确认密码 -->
+          <div>
+            <label for="confirmPassword">Confirm password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="Type password again"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <!-- 性别单选 -->
+          <div class="gender-field">
+            <p>Gender</p>
+            <div class="gender-options">
+              <input type="radio" id="male" name="gender" value="male" />
+              <label for="male">Male</label>
+
+              <input type="radio" id="female" name="gender" value="female" />
+              <label for="female">Female</label>
+
+              <input type="radio" id="other" name="gender" value="other" />
+              <label for="other">other</label>
+            </div>
+          </div>
+          <!-- 出生日期 -->
+          <div>
+            <label for="birth">Date of Birth</label>
+            <input type="date" name="birth" id="birth" />
+          </div>
+          <!-- 职业下拉菜单 -->
+          <div>
+            <label for="course">choose your profession</label>
+            <select id="course" name="course">
+              <option value="">choose your profession</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Data Analytics">Data Analytics</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+            </select>
+            <p class="error" id="courseError"></p>
+          </div>
+
+          <button type="submit">Create Account</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
