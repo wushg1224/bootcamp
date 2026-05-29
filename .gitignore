@@ -1,0 +1,3 @@
+# Ignore daily folders that start with Day
+/Day*/
+
