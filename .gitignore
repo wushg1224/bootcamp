@@ -1,3 +1,4 @@
 # Ignore daily folders that start with Day
 /Day*/
-
+#ignore folders that start with lesson
+lesson*/
