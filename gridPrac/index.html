@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Practice - Flow and Chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="intro">
+        <p class="eyebrow">Grid Practice</p>
+        <h1>Plan a Study Session</h1>
+        <p>
+          A small two-column layout with a mini flow on the left and a chat mock
+          panel on the right.
+        </p>
+      </section>
+
+      <section class="feature-card-container" aria-label="Study planning tools">
+        <article class="flow-panel-left">
+          <div class="panel-heading">
+            <p class="eyebrow">Mini Flow</p>
+            <h2>From idea to finished task</h2>
+          </div>
+
+          <div class="flow-list">
+            <div class="flow-step">
+              <span class="step-number">1</span>
+              <div>
+                <h3>Choose topic</h3>
+                <p>Pick one HTML or CSS skill to practice today.</p>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <span class="step-number">2</span>
+              <div>
+                <h3>Build layout</h3>
+                <p>Create the structure first, then add spacing and alignment.</p>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <span class="step-number">3</span>
+              <div>
+                <h3>Review result</h3>
+                <p>Resize the page and check that everything stays balanced.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chat-panel-right">
+          <div class="chat-header">
+            <div>
+              <p class="eyebrow">Chat Mock</p>
+              <h2>Practice Coach</h2>
+            </div>
+            <span class="status-dot" aria-label="Online"></span>
+          </div>
+
+          <div class="chat-body" aria-label="Mock chat messages">
+            <div class="message bot">
+              Start with the main grid container. What should go inside it?
+            </div>
+
+            <div class="message user">
+              A flow panel on the left and a chat panel on the right.
+            </div>
+
+            <div class="message bot">
+              Perfect. Now use a media query so they stack on smaller screens.
+            </div>
+          </div>
+
+          <form class="chat-input">
+            <input type="text" placeholder="Type a practice note..." />
+            <button type="button">Send</button>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <button class="floating-button" type="button">Help</button>
+  </body>
+</html>

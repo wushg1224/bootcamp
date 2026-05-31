@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #14314f;
+  background: #eef7ff;
+}
+
+.page-shell {
+  width: min(1120px, calc(100% - 40px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 64px 0 120px;
+}
+
+.intro {
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #2377c9;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 1.35rem;
+}
+
+h3 {
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+p {
+  color: #4b6683;
+  line-height: 1.6;
+}
+
+.feature-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.flow-panel-left,
+.chat-panel-right {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid #c7def3;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(48, 112, 174, 0.12);
+}
+
+.panel-heading {
+  margin-bottom: 24px;
+}
+
+.flow-list {
+  display: grid;
+  gap: 16px;
+}
+
+.flow-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px;
+  border: 1px solid #d7e9f8;
+  border-radius: 12px;
+  background: #f7fbff;
+}
+
+.step-number {
+  display: inline-flex;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2f8ee5;
+  font-weight: 700;
+}
+
+.flow-step p {
+  margin-bottom: 0;
+}
+
+.chat-panel-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #d7e9f8;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #23b26d;
+  box-shadow: 0 0 0 6px rgba(35, 178, 109, 0.12);
+}
+
+.chat-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 0;
+}
+
+.message {
+  max-width: 82%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  line-height: 1.5;
+}
+
+.message.bot {
+  align-self: flex-start;
+  color: #14314f;
+  background: #e8f3ff;
+}
+
+.message.user {
+  align-self: flex-end;
+  color: #ffffff;
+  background: #2f8ee5;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid #d7e9f8;
+}
+
+.chat-input input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #bdd8ef;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.chat-input button,
+.floating-button {
+  border: 0;
+  border-radius: 10px;
+  color: #ffffff;
+  background: #2377c9;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chat-input button {
+  padding: 0 18px;
+}
+
+.floating-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  min-width: 72px;
+  min-height: 52px;
+  box-shadow: 0 14px 28px rgba(35, 119, 201, 0.3);
+}
+
+/* TODO: Try adding connector lines between the flow steps. */
+/* TODO: Try changing the chat message colors while keeping the light blue theme. */
+/* TODO: Try adjusting the spacing until both panels feel visually balanced. */
+
+@media (max-width: 768px) {
+  .page-shell {
+    width: min(100% - 28px, 1120px);
+    padding-top: 40px;
+  }
+
+  .feature-card-container {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-panel-left,
+  .chat-panel-right {
+    padding: 22px;
+  }
+
+  .chat-input {
+    flex-direction: column;
+  }
+
+  .chat-input button {
+    min-height: 44px;
+  }
+}
