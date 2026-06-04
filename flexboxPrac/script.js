@@ -34,7 +34,7 @@ function showError(input, message) {
     `[data-error-for="${input.name}"]`,
   );
   field.classList.add("is-error");
-  errorBox.textContent = "";
+  errorBox.textContent = message;
 }
 
 function clearError(input) {
@@ -51,56 +51,43 @@ function isValidEmail(email) {
   return email.includes("@");
 }
 
-// fanBoardForm.addEventListener("submit", function (event) {
-//   event.preventDefault();
-
-//   let isValid = true;
-//   const name = nameInput.value.trim();
-//   const email = emailInput.value.trim();
-//   const message = messageInput.value.trim();
-
-//   if (name === "") {
-//     showError(nameInput, "请填写姓名。");
-//     isValid = false;
-//   } else {
-//     clearError(nameInput);
-//   }
-
-//   if (!isValidEmail(email) && email === "") {
-//     showError(emailInput, "fill emial");
-//     isValid = isValid = false;
-//   } else {
-//     clearError(emailInput);
-//   }
-
-//   if (message.length < 10) {
-//     showError(messageInput, "fill msg");
-//     isValid = false;
-//   } else {
-//     clearError(messageInput);
-//   }
-//   if (!isValid) {
-//     fanBoardStatus.textContent = "请先补全红色提示的字段。";
-//     return;
-//   }
-//   fanBoardButton.disabled = true;
-//   fanBoardButton.textContent = "送出中...";
-//   fanBoardStatus.textContent = "正在提交留言...";
-
-//   setTimeout(function () {
-//     fanBoardButton.disabled = false;
-//     fanBoardButton.textContent = "送出留言";
-//     fanBoardStatus.textContent = "留言已提交成功！";
-//     fanBoardForm.reset();
-//   }, 1000);
-// });
 fanBoardForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  fanBoardButton.disabled = true;
-  fanBoardButton.textContent = "提交中...";
-  fanBoardStatus.textContent = "";
+  let isValid = true;
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const message = messageInput.value.trim();
 
+  if (name === "") {
+    showError(nameInput, "请填写姓名。");
+    isValid = false;
+  } else {
+    clearError(nameInput);
+  }
+
+  if (!isValidEmail(email) && email === "") {
+    showError(emailInput, "fill emial");
+    isValid = isValid = false;
+  } else {
+    clearError(emailInput);
+  }
+
+  if (message.length < 10) {
+    showError(messageInput, "msg too short");
+    isValid = false;
+  } else {
+    clearError(messageInput);
+  }
+  if (!isValid) {
+    fanBoardStatus.textContent = "请先补全红色提示的字段。";
+    return;
+  }
+  fanBoardButton.disabled = true;
+  fanBoardButton.textContent = "送出中...";
+  fanBoardStatus.textContent = "正在提交留言...";
+
+  // fetch funciton
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     headers: {
@@ -130,4 +117,10 @@ fanBoardForm.addEventListener("submit", function (event) {
       fanBoardButton.disabled = false;
       fanBoardButton.textContent = "送出留言";
     });
+  // setTimeout(function () {
+  //   fanBoardButton.disabled = false;
+  //   fanBoardButton.textContent = "送出留言";
+  //   fanBoardStatus.textContent = "留言已提交成功！";
+  //   fanBoardForm.reset();
+  // }, 1000);
 });
