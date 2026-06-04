@@ -70,23 +70,46 @@
           </div>
         </div>
       </section>
+      <section class="fan-board">
+        <div class="fan-board__layout">
+          <img
+            class="fan-board__image"
+            src="assets/fan-board.jpeg"
+            alt="桌面上的电脑和学习笔记"
+          />
 
-      <!-- test button to top -->
-      <section class="cards">
-        <div class="cards-container">
-          <div class="cards-items">
-            <div class="card-item">
-              <img src="assets/IMG_0228.JPEG" alt="liu" />
-              <p class="card-des">6th year concert</p>
-            </div>
-            <div class="card-item">
-              <img src="assets/IMG_9774.JPEG" alt="song" />
-              <p class="card-des">6th year concert</p>
-            </div>
-            <div class="card-item">
-              <img src="assets/IMG_0657.JPEG" alt="dog" />
-              <p class="card-des">dog</p>
-            </div>
+          <div class="fan-board__content">
+            <p class="fan-board__label">Fan Board</p>
+            <h2 class="fan-board__title">粉丝留言板</h2>
+            <p class="fan-board__text">
+              喜欢我的练习作品，或者想一起学习前端，就在这里留下一张小纸条吧。
+            </p>
+
+            <form class="fan-board__form" id="fan-board-form" novalidate>
+              <label class="fan-board__field">
+                <span>Name</span>
+                <input name="name" type="text" autocomplete="name" />
+                <small class="fan-board__error" data-error-for="name"></small>
+              </label>
+
+              <label class="fan-board__field">
+                <span>Email</span>
+                <input name="email" type="email" autocomplete="email" />
+                <small class="fan-board__error" data-error-for="email"></small>
+              </label>
+
+              <label class="fan-board__field">
+                <span>Message</span>
+                <textarea name="message" rows="5"></textarea>
+                <small
+                  class="fan-board__error"
+                  data-error-for="message"
+                ></small>
+              </label>
+
+              <button class="fan-board__submit" type="submit">送出留言</button>
+              <p class="fan-board__status" aria-live="polite"></p>
+            </form>
           </div>
         </div>
       </section>
