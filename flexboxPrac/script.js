@@ -66,8 +66,8 @@ fanBoardForm.addEventListener("submit", function (event) {
     clearError(nameInput);
   }
 
-  if (!isValidEmail(email) && email === "") {
-    showError(emailInput, "fill emial");
+  if (!isValidEmail(email) || email === "") {
+    showError(emailInput, "fill emial with@");
     isValid = isValid = false;
   } else {
     clearError(emailInput);
