@@ -1,3 +1,52 @@
+// slider
+(function () {
+  const captions = ['6th year concert', '6th year concert', 'dog'];
+  const slides = Array.from(document.querySelectorAll('.slider__item'));
+  const dots = Array.from(document.querySelectorAll('.slider__dot'));
+  const captionEl = document.querySelector('.slider__caption');
+  let current = 0;
+  let timer;
+
+  function go(index) {
+    const total = slides.length;
+    current = (index + total) % total;
+    const prev = (current - 1 + total) % total;
+    const next = (current + 1) % total;
+
+    slides.forEach((s, i) => {
+      s.className = 'slider__item';
+      if (i === current) s.classList.add('is-active');
+      else if (i === prev) s.classList.add('is-prev');
+      else if (i === next) s.classList.add('is-next');
+      else s.classList.add('is-hidden');
+    });
+
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    if (captionEl) captionEl.textContent = captions[current];
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(() => go(current + 1), 3500);
+  }
+
+  dots.forEach((d, i) => {
+    d.addEventListener('click', () => { go(i); startAuto(); });
+  });
+
+  slides.forEach((s, i) => {
+    s.addEventListener('click', () => {
+      if (s.classList.contains('is-prev') || s.classList.contains('is-next')) {
+        go(i);
+        startAuto();
+      }
+    });
+  });
+
+  go(0);
+  startAuto();
+})();
+
 //test scroll postion
 // window.addEventListener("scroll", function () {
 //   console.log("现在滚到的位置:", window.scrollY);
