@@ -2,3 +2,6 @@
 /Day*/
 #ignore folders that start with lesson
 lesson*/
+
+# 隐藏 API Key
+weatherApp/config.js
