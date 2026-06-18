@@ -86,3 +86,11 @@ function displayWeather(data) {
     weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     weatherCard.classList.remove("hidden");
 }
+
+// return button to go back to previous page
+document.getElementById("back-btn").addEventListener("click", function () {
+    weatherCard.classList.add("hidden");
+    errorMsg.classList.add("hidden");
+    cityInput.value = "";
+    cityInput.focus();
+});
