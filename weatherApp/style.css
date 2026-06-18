@@ -115,6 +115,24 @@ h1 {
 }
 
 /* ===== 工具类 ===== */
+
+/* ===== 返回按钮 ===== */
+.back-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.back-btn:hover {
+    background: #667eea;
+    color: white;
+}
 .hidden {
     display: none;
 }
