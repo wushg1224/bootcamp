@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气查询</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>天气查询</h1>
+
+        <!-- 搜索表单 -->
+        <form id="weather-form">
+            <input type="text" id="city-input" placeholder="输入城市名称 (英文，如 London)">
+            <button type="submit">查询</button>
+        </form>
+
+        <!-- 错误提示 -->
+        <p id="error-msg" class="error hidden"></p>
+
+        <!-- 天气信息卡片 -->
+        <div id="weather-card" class="weather-card hidden">
+            <h2 id="city-name"></h2>
+            <img id="weather-icon" src="" alt="天气图标">
+            <p id="temperature" class="temp"></p>
+            <p id="description"></p>
+            <div class="details">
+                <div class="detail-item">
+                    <span class="label">湿度</span>
+                    <span id="humidity"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">风速</span>
+                    <span id="wind"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

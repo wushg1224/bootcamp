@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #333;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    color: #667eea;
+}
+
+/* ===== 表单样式 ===== */
+#weather-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#city-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#city-input:focus {
+    border-color: #667eea;
+}
+
+#weather-form button {
+    padding: 0.75rem 1.25rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#weather-form button:hover {
+    background: #5a6fd6;
+}
+
+/* ===== 错误提示 ===== */
+.error {
+    color: #e74c3c;
+    margin-top: 1rem;
+}
+
+/* ===== 天气卡片 ===== */
+.weather-card {
+    margin-top: 1.5rem;
+}
+
+.weather-card h2 {
+    font-size: 1.5rem;
+}
+
+.weather-card img {
+    width: 100px;
+    height: 100px;
+}
+
+.temp {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0.25rem 0;
+}
+
+#description {
+    text-transform: capitalize;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.label {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* ===== 工具类 ===== */
+.hidden {
+    display: none;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .temp {
+        font-size: 2.5rem;
+    }
+}
