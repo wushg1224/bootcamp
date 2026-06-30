@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import UserCard from './UserCard';
+import useUser from './useUser';
 
 function App() {
+  const { users, setUsers } = useUser();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save ddddto reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {users.map((user, index) => (
+        <UserCard key={index} name={user.name} age={user.age} />
+      ))}
+<button onClick={() => {
+        const newUsers = [...users];
+        newUsers[0].name = 'Lily Updated';
+        setUsers(newUsers);
+      }}>Change Name of First User</button>
     </div>
   );
 }
