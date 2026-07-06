@@ -11,7 +11,10 @@
   font-size: 2rem;
   margin-bottom: 8px;
 }
-
+.field {
+  display: flex;
+  flex-direction: column;
+}
 .login-container input {
   padding: 10px 14px;
   width: 260px;
@@ -32,4 +35,10 @@
 
 .login-container button:hover {
   background-color: #357abd;
+}
+
+.error-message {
+  color: #d93025;
+  font-size: 14px;
+  margin: 4px 0 0;
 }
