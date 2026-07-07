@@ -6,6 +6,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   // console.log("current email state:", email);
 
   // a function that checks the email format and updates emailError
@@ -24,6 +26,22 @@ if (!value.trim()) {
 }
 };
 
+// a function that check the password format
+const passwordChange = (e) => {
+  const value = e.target.value;   // 1. grab what was typed
+  setPassword(value);              // 2. update state → input shows it
+  // 3. run the rules, set or clear the error
+
+if (!value.trim()) {
+  setPasswordError("Password is required");
+} else if (	value.length < 6) {
+  setPasswordError("Password must be at least 6 characters");
+} else if (value.length > 20) {
+  setPasswordError("Password must be less than 20 characters");
+} else {
+  setPasswordError("");
+}};
+
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -38,12 +56,14 @@ if (!value.trim()) {
       {/* <p>Email: {email}</p> */}
       </div>
       
+      {/* render error msg */}
+        <div className="field">
       <input type="password" placeholder="Password" 
       value={password}
-      onChange={(e)=> {
-    setPassword(e.target.value);
-    // console.log("password input:", e.target.value);
-  }}/>
+      onChange={passwordChange}/>
+      {passwordError && <p className="error-message">{passwordError}</p>}
+      </div>
+
       <button>Login</button>
     
     </div>
