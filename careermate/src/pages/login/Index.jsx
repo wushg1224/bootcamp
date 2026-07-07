@@ -1,6 +1,8 @@
 import React from "react";
 import "./Index.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function mockLogin(email, password) {
   return new Promise((resolve, reject) => {
@@ -10,7 +12,7 @@ function mockLogin(email, password) {
       } else {
         reject(new Error("Incorrect email or password"));
       }
-    }, 1000);
+    }, 5000);
   });
 }
 function Login() {
@@ -19,12 +21,13 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
-const [error, setError] = useState("");
+  const [error, setError] = useState("");
 
-  // console.log("current email state:", email);
+  const navigate = useNavigate();
+
 
   // a function that checks the email format and updates emailError
- const handleEmailChange = (e) => {
+function handleEmailChange(e) {
   const value = e.target.value;
   setEmail(value);
 
@@ -68,6 +71,7 @@ function validate(email, password) {
   e.preventDefault();
   setError("");
 
+
   const errMsg = validate(email, password);
   if (errMsg) {
     setStatus("error");
@@ -79,7 +83,9 @@ function validate(email, password) {
     setStatus("loading");
     await mockLogin(email, password);   // pauses here ~1 second
     setStatus("success");
+    navigate("/home"); 
   } catch (err) {
+    console.log(err)
     setStatus("error");
     setError(err.message);              // "Incorrect email or password"
   }
@@ -87,7 +93,7 @@ function validate(email, password) {
 
 
   return (
-    <form className="login-container" onSubmit={handleSubmit}>
+    <form className="login-container" onSubmit={handleSubmit} noValidate>
       <h1>Login</h1>
       <div className="field">
       <input type="email" 
@@ -107,7 +113,8 @@ function validate(email, password) {
       onChange={passwordChange}/>
       {passwordError && <p className="error-message">{passwordError}</p>}
       </div>
-{status === "error" && <p className="error-message">{error}</p>}
+      {/* error msg for both */}
+      {status === "error" && <p className="error-message">{error}</p>}
 
 {/* //button UI react to status */}
       <button disabled={status === "loading"}>
