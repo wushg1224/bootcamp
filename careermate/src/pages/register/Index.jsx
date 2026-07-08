@@ -9,6 +9,7 @@ function mockRegister(name, email, password) {
     setTimeout(() => resolve(), 1500);
   });
 }
+
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
