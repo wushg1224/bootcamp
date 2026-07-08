@@ -17,8 +17,8 @@ function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [confirmError, setConfirmError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
@@ -55,20 +55,6 @@ function Register() {
     }
   }
 
-  //a function that handle confirm
-  function handleConfirmChange(e) {
-    const value = e.target.value;
-    setConfirm(value);
-
-    if (!value.trim()) {
-      setConfirmError("Please confirm your password");
-    } else if (value !== password) {
-      setConfirmError("Passwords do not match");
-    } else {
-      setConfirmError("");
-    }
-  }
-
   // a function that check the password format
   const passwordChange = (e) => {
     const value = e.target.value; // 1. grab what was typed
@@ -85,21 +71,40 @@ function Register() {
       setPasswordError("");
     }
 
-    if (confirm && value !== confirm) {
-      setConfirmError("Passwords do not match");
-    } else if (confirm && value === confirm) {
-      setConfirmError("");
+    // check confirm password match
+    if (confirmPassword && value !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError("");
     }
   };
+  // a function that check the confirm password format
+  function handleConfirmPasswordChange(e) {
+    const value = e.target.value;
+    setConfirmPassword(value);
 
-  //function for validate 4 fileds before form submit
+    if (!value.trim()) {
+      setConfirmPasswordError("Confirm Password is required");
+    } else if (value !== password) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError("");
+    }
+  }
+
+  //function for validate all 4 fileds before form submit
   function validate() {
-    if (!email.trim() || !password.trim() || !name.trim() || !confirm.trim())
+    if (
+      !email.trim() ||
+      !password.trim() ||
+      !name.trim() ||
+      !confirmPassword.trim()
+    )
       return "All fields are required";
-    if (name.length > 30) return "max 30 characters";
+    if (name.length > 30) return "Name must be less than 30 characters";
     if (!email.includes("@")) return "Invalid email format";
     if (password.length < 6) return "Password must be at least 6 characters";
-    if (confirm !== password) return "Passwords do not match";
+    if (password !== confirmPassword) return "Passwords do not match";
     return null;
   }
 
@@ -107,7 +112,7 @@ function Register() {
     e.preventDefault();
     setError("");
 
-    const errMsg = validate();
+    const errMsg = validate(email, password);
     if (errMsg) {
       setStatus("error");
       setError(errMsg);
@@ -127,72 +132,73 @@ function Register() {
   }
 
   return (
-    <div className="register-page">
-      <form className="register-container" onSubmit={handleSubmit} noValidate>
-        <h1>CareerMate Register</h1>
+    <form className="login-container" onSubmit={handleSubmit} noValidate>
+      <h1>CareerMate Register</h1>
 
-        <div className="field">
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            placeholder="Name"
-            type="text"
-            value={name}
-            onChange={handleNameChange}
-          />
-          {nameError && <p className="error-message">{nameError}</p>}
-        </div>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            autoComplete="off"
-            onChange={handleEmailChange}
-          />
-          {emailError && <p className="error-message">{emailError}</p>}
-          {/* <p>Email: {email}</p> */}
-        </div>
+      <div className="field">
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          placeholder="Name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+        />
+        {nameError && <p className="error-message">{nameError}</p>}
+      </div>
+      <div className="field">
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          value={email}
+          autoComplete="off"
+          onChange={handleEmailChange}
+        />
+        {emailError && <p className="error-message">{emailError}</p>}
+        {/* <p>Email: {email}</p> */}
+      </div>
 
-        {/* password */}
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={passwordChange}
-          />
-          {passwordError && <p className="error-message">{passwordError}</p>}
-        </div>
-        {/* confirm Password */}
-        <div className="field">
-          <label htmlFor="confirm">Confirm Password</label>
-          <input
-            id="confirm"
-            type="password"
-            placeholder="Confirm Password"
-            value={confirm}
-            onChange={handleConfirmChange}
-          />
-          {confirmError && <p className="error-message">{confirmError}</p>}
-        </div>
-        {/* error msg for both */}
-        {status === "error" && <p className="error-message">{error}</p>}
+      {/* render error msg */}
+      <div className="field">
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={passwordChange}
+        />
+        {passwordError && <p className="error-message">{passwordError}</p>}
+      </div>
 
-        {/* //button UI react to status */}
-        <button disabled={status === "loading"}>
-          {status === "loading" ? "Registering..." : "Register"}
-        </button>
-
-        {status === "success" && (
-          <p className="success-message">Login success ✅</p>
+      <div className="field">
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
+        {confirmPasswordError && (
+          <p className="error-message">{confirmPasswordError}</p>
         )}
-      </form>
-    </div>
+      </div>
+
+      {/* error msg for both */}
+      {status === "error" && <p className="error-message">{error}</p>}
+
+      {/* //button UI react to status */}
+      <button disabled={status === "loading"}>
+        {status === "loading" ? "Registering..." : "Register"}
+      </button>
+
+      {status === "success" && (
+        <p className="success-message">Login success ✅</p>
+      )}
+    </form>
   );
 }
 
