@@ -42,3 +42,11 @@
   font-size: 14px;
   margin: 4px 0 0;
 }
+
+.field label {
+  font-weight: 600;        /* semi-bold, like the screenshot */
+  color: #374151;          /* dark grey, softer than pure black */
+  font-size: 15px;
+  margin-bottom: 6px;      /* gap between label and its input */
+  text-align: left;        /* keeps it hugging the left edge of the input */
+}
