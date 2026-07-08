@@ -2,25 +2,21 @@ import React from "react";
 import "./Index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-
-function mockLogin(email, password) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (email === "ceci@gmail.com" && password === "123456") {
-        resolve();
-      } else {
-        reject(new Error("Incorrect email or password"));
-      }
-    }, 5000);
+// simulate server saved account
+function mockRegister(name, email, password) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), 1500);
   });
 }
-function Login() {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+const [name, setName] = useState("");
+const [nameError, setNameError] = useState("");
+
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
 
@@ -38,6 +34,21 @@ if (!value.trim()) {
   setEmailError("Invalid email format");
 } else if (value.length > 50) {
   setEmailError("Email must be less than 50 characters");
+} else {
+  setEmailError("");
+}
+};
+
+//a function that check the name
+function handleNameChange(e) {
+  const value = e.target.value;
+  setName(value);
+
+if (!value.trim()) {
+  setNameError("Name is required");
+} 
+else if (value.length > 30) {
+  setEmailError("max 30 characters");
 } else {
   setEmailError("");
 }
@@ -82,9 +93,9 @@ function validate(email, password) {
 
   try {
     setStatus("loading");
-    await mockLogin(email, password);   // pauses here ~1 second
+    await mockRegister(email, password);   // pauses here ~1 second
     setStatus("success");
-    navigate("/home"); 
+    navigate("/login"); 
   } catch (err) {
     console.log(err)
     setStatus("error");
@@ -95,8 +106,15 @@ function validate(email, password) {
 
   return (
     <form className="login-container" onSubmit={handleSubmit} noValidate>
-      <h1>Login</h1>
+      <h1>CareerMate Register</h1>
+
+  <div className="field">
+  <label htmlFor="name">Name</label>
+  <input id="name" placeholder="Name" type="text" value={name} onChange={handleNameChange} />
+  {nameError && <p className="error-message">{nameError}</p>}
+</div>
       <div className="field">
+         <label htmlFor="email">Email</label>
       <input type="email" 
       placeholder="Email"  
       value={email}
@@ -109,6 +127,7 @@ function validate(email, password) {
       
       {/* render error msg */}
         <div className="field">
+           <label htmlFor="password">Password</label>
       <input type="password" placeholder="Password" 
       value={password}
       onChange={passwordChange}/>
@@ -119,16 +138,13 @@ function validate(email, password) {
 
 {/* //button UI react to status */}
       <button disabled={status === "loading"}>
-  {status === "loading" ? "Logging in..." : "Login"}
+  {status === "loading" ? "Registering..." : "Register"}
 </button>
 
 {status === "success" && <p className="success-message">Login success ✅</p>}
-    {/* jummp to register page */}
-   <p className="switch-link">
-  Don't have an account? <Link to="/register">Register</Link>
-</p>
+    
     </form>
   );
 }
 
-export default Login;
+export default Register;

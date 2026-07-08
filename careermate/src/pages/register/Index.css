@@ -42,18 +42,10 @@
   font-size: 14px;
   margin: 4px 0 0;
 }
-
-.switch-link {
-  color: #6b7280;        /* soft grey for the sentence */
+.field label {
+  font-weight: 600;        /* semi-bold, like the screenshot */
+  color: #374151;          /* dark grey, softer than pure black */
   font-size: 15px;
-}
-
-.switch-link a {
-  color: #1a73e8;        /* blue, matches your button family */
-  font-weight: bold;
-  text-decoration: none; /* removes the default underline */
-}
-
-.switch-link a:hover {
-  text-decoration: underline; /* affordance: shows it's clickable */
+  margin-bottom: 6px;      /* gap between label and its input */
+  text-align: left;        /* keeps it hugging the left edge of the input */
 }
