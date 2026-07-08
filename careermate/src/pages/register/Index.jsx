@@ -132,73 +132,75 @@ function Register() {
   }
 
   return (
-    <form className="login-container" onSubmit={handleSubmit} noValidate>
-      <h1>CareerMate Register</h1>
+    <div className="register-page">
+      <form className="register-container" onSubmit={handleSubmit} noValidate>
+        <h1>CareerMate Register</h1>
 
-      <div className="field">
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          placeholder="Name"
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-        />
-        {nameError && <p className="error-message">{nameError}</p>}
-      </div>
-      <div className="field">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          autoComplete="off"
-          onChange={handleEmailChange}
-        />
-        {emailError && <p className="error-message">{emailError}</p>}
-        {/* <p>Email: {email}</p> */}
-      </div>
+        <div className="field">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            placeholder="Name"
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+          />
+          {nameError && <p className="error-message">{nameError}</p>}
+        </div>
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            autoComplete="off"
+            onChange={handleEmailChange}
+          />
+          {emailError && <p className="error-message">{emailError}</p>}
+          {/* <p>Email: {email}</p> */}
+        </div>
 
-      {/* render error msg */}
-      <div className="field">
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={passwordChange}
-        />
-        {passwordError && <p className="error-message">{passwordError}</p>}
-      </div>
+        {/* render error msg */}
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={passwordChange}
+          />
+          {passwordError && <p className="error-message">{passwordError}</p>}
+        </div>
 
-      <div className="field">
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-        {confirmPasswordError && (
-          <p className="error-message">{confirmPasswordError}</p>
+        <div className="field">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          {confirmPasswordError && (
+            <p className="error-message">{confirmPasswordError}</p>
+          )}
+        </div>
+
+        {/* error msg for both */}
+        {status === "error" && <p className="error-message">{error}</p>}
+
+        {/* //button UI react to status */}
+        <button disabled={status === "loading"}>
+          {status === "loading" ? "Registering..." : "Register"}
+        </button>
+
+        {status === "success" && (
+          <p className="success-message">Login success ✅</p>
         )}
-      </div>
-
-      {/* error msg for both */}
-      {status === "error" && <p className="error-message">{error}</p>}
-
-      {/* //button UI react to status */}
-      <button disabled={status === "loading"}>
-        {status === "loading" ? "Registering..." : "Register"}
-      </button>
-
-      {status === "success" && (
-        <p className="success-message">Login success ✅</p>
-      )}
-    </form>
+      </form>
+    </div>
   );
 }
 
