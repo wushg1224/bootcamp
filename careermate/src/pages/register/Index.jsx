@@ -10,6 +10,7 @@ import {
   validateRegister,
 } from "../../utils/validators";
 import TextInput from "../../components/TextInput";
+import { useField } from "../../hooks/useField";
 
 // simulate server saved account
 function mockRegister(name, email, password) {
@@ -19,12 +20,10 @@ function mockRegister(name, email, password) {
 }
 
 function Register() {
-  const [email, setEmail] = useState("");
+  const name = useField(validateName);
+  const email = useField(validateEmail);
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
@@ -32,20 +31,6 @@ function Register() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  // a function that checks the email format and updates emailError
-  function handleEmailChange(e) {
-    const value = e.target.value;
-    setEmail(value);
-    setEmailError(validateEmail(value));
-  }
-
-  //a function that check the name
-  function handleNameChange(e) {
-    const value = e.target.value;
-    setName(value);
-    setNameError(validateName(value));
-  }
 
   // a function that check the password format
   const passwordChange = (e) => {
@@ -69,7 +54,12 @@ function Register() {
     setError("");
 
     //validate all four field before submit
-    const errMsg = validateRegister(name, email, password, confirmPassword);
+    const errMsg = validateRegister(
+      name.value,
+      email.value,
+      password,
+      confirmPassword,
+    );
     if (errMsg) {
       setStatus("error");
       setError(errMsg);
@@ -78,7 +68,7 @@ function Register() {
 
     try {
       setStatus("loading");
-      await mockRegister(name, email, password); // pauses here ~1 second
+      await mockRegister(name.value, email.value, password); // pauses here ~1 second
       setStatus("success");
       navigate("/login");
     } catch (err) {
@@ -96,9 +86,9 @@ function Register() {
         <TextInput
           id="name"
           label="Name"
-          value={name}
-          onChange={handleNameChange}
-          error={nameError}
+          value={name.value}
+          onChange={name.onChange}
+          error={name.error}
           autoComplete="off"
         />
 
@@ -106,9 +96,9 @@ function Register() {
           id="email"
           label="Email"
           type="email"
-          value={email}
-          onChange={handleEmailChange}
-          error={emailError}
+          value={email.value}
+          onChange={email.onChange}
+          error={email.error}
           autoComplete="off"
         />
 
