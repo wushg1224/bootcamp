@@ -99,6 +99,7 @@ function Register() {
           value={name}
           onChange={handleNameChange}
           error={nameError}
+          autoComplete="off"
         />
 
         <TextInput

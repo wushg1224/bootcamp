@@ -8,6 +8,7 @@ import {
   validatePassword,
   validateLogin,
 } from "../../utils/validators";
+import TextInput from "../../components/TextInput";
 
 function mockLogin(email, password) {
   return new Promise((resolve, reject) => {
@@ -71,28 +72,24 @@ function Login() {
   return (
     <form className="login-container" onSubmit={handleSubmit} noValidate>
       <h1>Login</h1>
-      <div className="field">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          autoComplete="off"
-          onChange={handleEmailChange}
-        />
-        {emailError && <p className="error-message">{emailError}</p>}
-        {/* <p>Email: {email}</p> */}
-      </div>
 
-      {/* render error msg */}
-      <div className="field">
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={passwordChange}
-        />
-        {passwordError && <p className="error-message">{passwordError}</p>}
-      </div>
+      <TextInput
+        placeholder="Email"
+        type="email"
+        value={email}
+        onChange={handleEmailChange}
+        error={emailError}
+        autoComplete="off"
+      />
+
+      <TextInput
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={passwordChange}
+        error={passwordError}
+      />
+
       {/* error msg for both */}
       {status === "error" && <p className="error-message">{error}</p>}
 
