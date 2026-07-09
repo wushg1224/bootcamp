@@ -9,6 +9,7 @@ import {
   validatePassword,
   validateRegister,
 } from "../../utils/validators";
+import TextInput from "../../components/TextInput";
 
 // simulate server saved account
 function mockRegister(name, email, password) {
@@ -92,57 +93,41 @@ function Register() {
       <form className="register-container" onSubmit={handleSubmit} noValidate>
         <h1>CareerMate Register</h1>
 
-        <div className="field">
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            placeholder="Name"
-            type="text"
-            value={name}
-            onChange={handleNameChange}
-          />
-          {nameError && <p className="error-message">{nameError}</p>}
-        </div>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            autoComplete="off"
-            onChange={handleEmailChange}
-          />
-          {emailError && <p className="error-message">{emailError}</p>}
-          {/* <p>Email: {email}</p> */}
-        </div>
+        <TextInput
+          id="name"
+          label="Name"
+          value={name}
+          onChange={handleNameChange}
+          error={nameError}
+        />
 
-        {/* render error msg */}
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={passwordChange}
-          />
-          {passwordError && <p className="error-message">{passwordError}</p>}
-        </div>
+        <TextInput
+          id="email"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          error={emailError}
+          autoComplete="off"
+        />
 
-        <div className="field">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-          />
-          {confirmPasswordError && (
-            <p className="error-message">{confirmPasswordError}</p>
-          )}
-        </div>
+        <TextInput
+          id="password"
+          label="Password"
+          type="password"
+          value={password}
+          onChange={passwordChange}
+          error={passwordError}
+        />
+
+        <TextInput
+          id="confirmPassword"
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+          error={confirmPasswordError}
+        />
 
         {/* error msg for both */}
         {status === "error" && <p className="error-message">{error}</p>}
