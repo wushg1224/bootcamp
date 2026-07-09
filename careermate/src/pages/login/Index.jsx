@@ -3,12 +3,9 @@ import "./Index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {
-  validateEmail,
-  validatePassword,
-  validateLogin,
-} from "../../utils/validators";
+import { validatePassword, validateLogin } from "../../utils/validators";
 import TextInput from "../../components/TextInput";
+import { useEmail } from "../../hooks/useEmail";
 
 function mockLogin(email, password) {
   return new Promise((resolve, reject) => {
@@ -22,21 +19,12 @@ function mockLogin(email, password) {
   });
 }
 function Login() {
-  const [email, setEmail] = useState("");
+  const email = useEmail();
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
-
-  // a function that checks the email format and updates emailError
-  function handleEmailChange(e) {
-    const value = e.target.value;
-    setEmail(value);
-    setEmailError(validateEmail(value));
-  }
 
   // a function that check the password format
   const passwordChange = (e) => {
@@ -50,7 +38,7 @@ function Login() {
     e.preventDefault();
     setError("");
 
-    const errMsg = validateLogin(email, password);
+    const errMsg = validateLogin(email.value, password);
     if (errMsg) {
       setStatus("error");
       setError(errMsg);
@@ -59,7 +47,7 @@ function Login() {
 
     try {
       setStatus("loading");
-      await mockLogin(email, password); // pauses here ~1 second
+      await mockLogin(email.value, password); // pauses here ~1 second
       setStatus("success");
       navigate("/home");
     } catch (err) {
@@ -76,9 +64,9 @@ function Login() {
       <TextInput
         placeholder="Email"
         type="email"
-        value={email}
-        onChange={handleEmailChange}
-        error={emailError}
+        value={email.value}
+        onChange={email.onChange}
+        error={email.error}
         autoComplete="off"
       />
 
