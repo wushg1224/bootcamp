@@ -2,6 +2,13 @@ import React from "react";
 import "./Index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validateName,
+  validatePassword,
+  validateRegister,
+} from "../../utils/validators";
 
 // simulate server saved account
 function mockRegister(name, email, password) {
@@ -29,90 +36,39 @@ function Register() {
   function handleEmailChange(e) {
     const value = e.target.value;
     setEmail(value);
-
-    if (!value.trim()) {
-      setEmailError("Email is required");
-    } else if (!value.includes("@")) {
-      setEmailError("Invalid email format");
-    } else if (value.length > 50) {
-      setEmailError("Email must be less than 50 characters");
-    } else {
-      setEmailError("");
-    }
+    setEmailError(validateEmail(value));
   }
 
   //a function that check the name
   function handleNameChange(e) {
     const value = e.target.value;
     setName(value);
-
-    if (!value.trim()) {
-      setNameError("Name is required");
-    } else if (value.length > 30) {
-      setNameError("max 30 characters");
-    } else {
-      setNameError("");
-    }
+    setNameError(validateName(value));
   }
 
   // a function that check the password format
   const passwordChange = (e) => {
-    const value = e.target.value; // 1. grab what was typed
-    setPassword(value); // 2. update state → input shows it
-    // 3. run the rules, set or clear the error
-
-    if (!value.trim()) {
-      setPasswordError("Password is required");
-    } else if (value.length < 6) {
-      setPasswordError("Password must be at least 6 characters");
-    } else if (value.length > 20) {
-      setPasswordError("Password must be less than 20 characters");
-    } else {
-      setPasswordError("");
-    }
+    const value = e.target.value;
+    setPassword(value); //
+    setPasswordError(validatePassword(value));
 
     // check confirm password match
-    if (confirmPassword && value !== confirmPassword) {
-      setConfirmPasswordError("Passwords do not match");
-    } else {
-      setConfirmPasswordError("");
-    }
+    setConfirmPasswordError(validateConfirmPassword(confirmPassword, value));
   };
   // a function that check the confirm password format
   function handleConfirmPasswordChange(e) {
     const value = e.target.value;
     setConfirmPassword(value);
-
-    if (!value.trim()) {
-      setConfirmPasswordError("Confirm Password is required");
-    } else if (value !== password) {
-      setConfirmPasswordError("Passwords do not match");
-    } else {
-      setConfirmPasswordError("");
-    }
+    setConfirmPasswordError(validateConfirmPassword(value, password));
   }
 
-  //function for validate all 4 fileds before form submit
-  function validate() {
-    if (
-      !email.trim() ||
-      !password.trim() ||
-      !name.trim() ||
-      !confirmPassword.trim()
-    )
-      return "All fields are required";
-    if (name.length > 30) return "Name must be less than 30 characters";
-    if (!email.includes("@")) return "Invalid email format";
-    if (password.length < 6) return "Password must be at least 6 characters";
-    if (password !== confirmPassword) return "Passwords do not match";
-    return null;
-  }
-
+  //submit function
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
-    const errMsg = validate(email, password);
+    //validate all four field before submit
+    const errMsg = validateRegister(name, email, password, confirmPassword);
     if (errMsg) {
       setStatus("error");
       setError(errMsg);
