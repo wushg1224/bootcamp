@@ -1,7 +1,7 @@
 import React from "react";
 import "./Index.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   validateConfirmPassword,
   validateEmail,
@@ -26,7 +26,6 @@ function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
 
@@ -127,7 +126,9 @@ function Register() {
         <button disabled={status === "loading"}>
           {status === "loading" ? "Registering..." : "Register"}
         </button>
-
+        <p className="switch-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
         {status === "success" && (
           <p className="success-message">Login success ✅</p>
         )}

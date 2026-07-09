@@ -57,7 +57,8 @@ function Login() {
       <h1>Login</h1>
 
       <TextInput
-        placeholder="Email"
+        label="Email"
+        id="email"
         type="email"
         value={email.value}
         onChange={email.onChange}
@@ -66,7 +67,8 @@ function Login() {
       />
 
       <TextInput
-        placeholder="Password"
+        label="Password"
+        id="password"
         type="password"
         value={password.value}
         onChange={password.onChange}
