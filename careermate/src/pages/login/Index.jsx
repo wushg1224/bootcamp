@@ -3,9 +3,13 @@ import "./Index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { validatePassword, validateLogin } from "../../utils/validators";
+import {
+  validateEmail,
+  validatePassword,
+  validateLogin,
+} from "../../utils/validators";
 import TextInput from "../../components/TextInput";
-import { useEmail } from "../../hooks/useEmail";
+import { useField } from "../../hooks/useField";
 
 function mockLogin(email, password) {
   return new Promise((resolve, reject) => {
@@ -19,26 +23,17 @@ function mockLogin(email, password) {
   });
 }
 function Login() {
-  const email = useEmail();
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const email = useField(validateEmail);
+  const password = useField(validatePassword);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  // a function that check the password format
-  const passwordChange = (e) => {
-    const value = e.target.value; // 1. grab what was typed
-    setPassword(value); // 2. update state → input shows it
-    // 3. run the rules, set or clear the error
-    setPasswordError(validatePassword(value));
-  };
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
-    const errMsg = validateLogin(email.value, password);
+    const errMsg = validateLogin(email.value, password.value);
     if (errMsg) {
       setStatus("error");
       setError(errMsg);
@@ -47,7 +42,7 @@ function Login() {
 
     try {
       setStatus("loading");
-      await mockLogin(email.value, password); // pauses here ~1 second
+      await mockLogin(email.value, password.value); // pauses here ~1 second
       setStatus("success");
       navigate("/home");
     } catch (err) {
@@ -73,9 +68,9 @@ function Login() {
       <TextInput
         placeholder="Password"
         type="password"
-        value={password}
-        onChange={passwordChange}
-        error={passwordError}
+        value={password.value}
+        onChange={password.onChange}
+        error={password.error}
       />
 
       {/* error msg for both */}
