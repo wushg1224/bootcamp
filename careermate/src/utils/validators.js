@@ -39,7 +39,15 @@ export function validateConfirmPassword(value, password) {
     return "";
   }
 }
+export function validateLogin(email, password) {
+  const emailError = validateEmail(email);
+  if (emailError) return emailError;
 
+  const passwordError = validatePassword(password);
+  if (passwordError) return passwordError;
+
+  return null;
+}
 export function validateRegister(name, email, password, confirmPassword) {
   const nameError = validateName(name);
   if (nameError) return nameError;
