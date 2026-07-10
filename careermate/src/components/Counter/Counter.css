@@ -1,0 +1,44 @@
+.counter {
+  max-width: 320px;
+  margin: 80px auto;
+  padding: 32px;
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.counter h1 {
+  font-size: 20px;
+  color: #555;
+  margin: 0 0 8px;
+}
+
+.counter .count {
+  font-size: 64px;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0 0 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter button {
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: #2563eb;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.counter button:hover {
+  background: #1d4ed8;
+}
+
+.counter button:active {
+  transform: scale(0.96);
+}
