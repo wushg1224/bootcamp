@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 export default function TextInput({
   id,
   label,
@@ -6,12 +8,21 @@ export default function TextInput({
   onChange,
   error,
   placeholder = label,
+  autoFocus = false,
   ...rest
 }) {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if (autoFocus) {
+      inputRef.current?.focus();
+    }
+  }, []);
+
   return (
     <div className="field">
       {label && <label htmlFor={id}>{label}</label>}
       <input
+        ref={inputRef}
         id={id}
         type={type}
         placeholder={placeholder}

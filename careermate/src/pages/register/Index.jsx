@@ -69,6 +69,7 @@ function Register() {
           onChange={name.onChange}
           error={name.error}
           autoComplete="off"
+          autoFocus
         />
 
         <TextInput

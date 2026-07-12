@@ -64,6 +64,7 @@ function Login() {
         onChange={email.onChange}
         error={email.error}
         autoComplete="off"
+        autoFocus
       />
 
       <TextInput
