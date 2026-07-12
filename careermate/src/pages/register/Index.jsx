@@ -3,14 +3,13 @@ import "./Index.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
-  validateConfirmPassword,
   validateEmail,
   validateName,
-  validatePassword,
   validateRegister,
 } from "../../utils/validators";
 import TextInput from "../../components/TextInput";
 import { useField } from "../../hooks/useField";
+import { usePassword } from "../../hooks/usePassword";
 
 // simulate server saved account
 function mockRegister(name, email, password) {
@@ -22,30 +21,11 @@ function mockRegister(name, email, password) {
 function Register() {
   const name = useField(validateName);
   const email = useField(validateEmail);
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const pw = usePassword();
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  // a function that check the password format
-  const passwordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value); //
-    setPasswordError(validatePassword(value));
-
-    // check confirm password match
-    setConfirmPasswordError(validateConfirmPassword(confirmPassword, value));
-  };
-  // a function that check the confirm password format
-  function handleConfirmPasswordChange(e) {
-    const value = e.target.value;
-    setConfirmPassword(value);
-    setConfirmPasswordError(validateConfirmPassword(value, password));
-  }
 
   //submit function
   async function handleSubmit(e) {
@@ -56,8 +36,8 @@ function Register() {
     const errMsg = validateRegister(
       name.value,
       email.value,
-      password,
-      confirmPassword,
+      pw.password,
+      pw.confirmPassword,
     );
     if (errMsg) {
       setStatus("error");
@@ -67,7 +47,7 @@ function Register() {
 
     try {
       setStatus("loading");
-      await mockRegister(name.value, email.value, password); // pauses here ~1 second
+      await mockRegister(name.value, email.value, pw.password); // pauses here ~1 second
       setStatus("success");
       navigate("/login");
     } catch (err) {
@@ -105,18 +85,18 @@ function Register() {
           id="password"
           label="Password"
           type="password"
-          value={password}
-          onChange={passwordChange}
-          error={passwordError}
+          value={pw.password}
+          onChange={pw.passwordChange}
+          error={pw.passwordError}
         />
 
         <TextInput
           id="confirmPassword"
           label="Confirm Password"
           type="password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-          error={confirmPasswordError}
+          value={pw.confirmPassword}
+          onChange={pw.confirmPasswordChange}
+          error={pw.confirmPasswordError}
         />
 
         {/* error msg for both */}
