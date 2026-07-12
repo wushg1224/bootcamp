@@ -3,9 +3,14 @@ import "./Counter.css";
 
 //import useState hook
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("updated Count:", count);
+  }, [count]);
 
   function handleClick() {
     setCount((prevCount) => prevCount + 1);
