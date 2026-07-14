@@ -20,16 +20,16 @@ app.use("/test/:testId/:name", (req, res) => {
   res.json({ testId, testid, name, query, body });
 });
 
-app.use("/", (req, res) => {
-  res.json("root");
-});
-
 //global middleware
 
-app.use((req, res) => {
-  console.log(1);
-
+app.use((req, res, next) => {
   res.json("global");
+  next();
+  //   console.log(1);
+  //   res.json("global");
+});
+app.use("/", (req, res) => {
+  res.json("root");
 });
 
 //.method(pathname, route handler)
@@ -50,3 +50,16 @@ app.post("/", (req, res) => {
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
 });
+
+//middleware
+//middleware chain(functions call in sequencial)
+//error middleware
+//error middleware chain
+
+//m1, m2, m3
+//(req, res, next)
+// res.json(); next()
+// res.json()
+// next(error)
+
+// look at path. --method ---sequence to decide the sequence of excute
