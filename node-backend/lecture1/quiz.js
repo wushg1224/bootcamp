@@ -33,6 +33,7 @@ function m6(err, req, res, next) {
 }
 
 app.use(express.json());
+
 app.use(m1);
 app.use("/v1", m2);
 
@@ -65,5 +66,7 @@ app.get("/v1/error-async", async (req, res, next) => {
 });
 
 app.use(m6);
-
+app.use((req, res) => {
+  res.status(404).send("接口不存在");
+});
 app.listen(3000, () => console.log("listen on 3000"));
