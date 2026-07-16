@@ -1,0 +1,31 @@
+Design
+##endpoint - combination of http method and path
+GET  /movies
+Get /movies/5
+POST /movies
+
+##define endpoint in express
+app.get('/movies', (req, res) => { ... })   // endpoint 1
+
+
+
+GET /movies/:id
+
+PUT /movies/:id
+Body:{
+    title:"inception",
+    description:"a skilled thief steals dreams"
+    types:["Sci-Fi"]
+}
+200 400 404
+
+Delete /movies/:id
+204 (No Content) 404
+
+POST /movies/:id/reviews
+Body{
+    content:"amazing",
+    rating:5
+}
+GET /movies/:id/reviews
+404 400(bad request make sure rating is int) 200

@@ -1,15 +1,10 @@
 {
-  "name": "lecture1",
+  "name": "movie-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "",
-    "debug": "",
-    "lint": "",
-    "test": "",
-    "quiz": "nodemon quiz.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +15,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "allowScripts": {
+    "nodemon@3.1.14": true
   }
 }
