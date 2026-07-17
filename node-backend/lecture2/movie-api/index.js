@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 
 const movieRouter = express.Router();
+
 //router mounting
 app.use("/v1/movies", movieRouter);
 
@@ -27,12 +28,17 @@ let nextId = 1;
 // test on interface make sure it is working
 //route inside a router is relative to where the router is mounted
 movieRouter.get("/", (req, res) => {
-  res.json([movies]);
+  console.log("query:", req.query);
+  console.log(Object.keys(req));
+  console.log("url:", req.query);
+  // const { keyword, sort, page = 1, limit = 10 } = req.query;
+  res.json(req.query);
 });
 
 //post --create
 movieRouter.post("/", (req, res) => {
   const { title, description, types } = req.body;
+
   //data validation
   //fail fast
   if (!title || !description || !Array.isArray(types) || types.length === 0) {
