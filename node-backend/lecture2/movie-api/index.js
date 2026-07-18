@@ -76,16 +76,13 @@ movieRouter.get("/", (req, res) => {
 //post --create
 movieRouter.post("/", (req, res) => {
   const { title, description, types } = req.body;
-
   //data validation
-  //fail fast
   if (!title || !description || !Array.isArray(types) || types.length === 0) {
     res.status(400).json({
       message: "all fileds are requeired",
     });
     return;
   }
-
   const movie = {
     id: nextId++,
     title,
@@ -96,6 +93,17 @@ movieRouter.post("/", (req, res) => {
   };
   movies.push(movie);
   res.status(201).json(movie);
+});
+//get by id
+movieRouter.get("/:id", (req, res) => {
+  const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
+  if (!movie) {
+    res.status(404).json({
+      message: "movie not found",
+    });
+    return;
+  }
+  res.json(movie);
 });
 
 app.listen(3000, () => {
