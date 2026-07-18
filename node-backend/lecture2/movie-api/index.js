@@ -20,8 +20,16 @@ const movies = [
     averageRating: 4.5,
     reviews: [{}],
   },
+  {
+    id: 1,
+    title: "manchester by the sea",
+    description: "A miserable man",
+    types: ["Story"],
+    averageRating: 4.0,
+    reviews: [{}],
+  },
 ];
-let nextId = 1;
+let nextId = 2;
 
 //for id generate can use library like uuid and nanoid
 
@@ -29,10 +37,32 @@ let nextId = 1;
 //route inside a router is relative to where the router is mounted
 movieRouter.get("/", (req, res) => {
   console.log("query:", req.query);
-  console.log(Object.keys(req));
-  console.log("url:", req.query);
-  // const { keyword, sort, page = 1, limit = 10 } = req.query;
-  res.json(req.query);
+  console.log("next");
+  let { keyword, sort, page = 1, limit = 10 } = req.query;
+  page = parseInt(page);
+  limit = parseInt(limit);
+  //shallow copy
+  let filteredMovies = [...movies];
+  if (keyword) {
+    filteredMovies = filteredMovies.filter((movie) => {
+      const insensitiveTitle = movie.title.toLowerCase();
+      const insensitiveDescrition = movie.description.toLowerCase();
+      const insensitiveKeyword = keyword.toLowerCase();
+      return (
+        insensitiveTitle.includes(insensitiveKeyword) ||
+        insensitiveDescrition.includes(insensitiveKeyword)
+      );
+    });
+  }
+
+  //sort by rating
+  if (sort === "rating") {
+    filteredMovies.sort((a, b) => a.averageRating - b.averageRating);
+  } else if (sort === "-rating") {
+    filteredMovies.sort((a, b) => b.averageRating - a.averageRating);
+  }
+
+  res.json(filteredMovies);
 });
 
 //post --create
