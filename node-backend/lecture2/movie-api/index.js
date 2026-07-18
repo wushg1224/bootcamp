@@ -38,7 +38,7 @@ let nextId = 2;
 movieRouter.get("/", (req, res) => {
   console.log("query:", req.query);
   console.log("next");
-  let { keyword, sort, page = 1, limit = 10 } = req.query;
+  let { keyword, sort, page = 1, limit = 10, bla } = req.query;
   page = parseInt(page);
   limit = parseInt(limit);
   //shallow copy
@@ -54,6 +54,13 @@ movieRouter.get("/", (req, res) => {
         insensitiveTitle.includes(insensitiveKeyword) ||
         insensitiveDescrition.includes(insensitiveKeyword)
       );
+    });
+  }
+
+  if (bla) {
+    filteredMovies = filteredMovies.filter((movie) => {
+      const insensitiveDescrition = movie.description.toLowerCase();
+      return insensitiveDescrition.includes(bla);
     });
   }
 
