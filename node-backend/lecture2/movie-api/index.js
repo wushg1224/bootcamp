@@ -43,6 +43,8 @@ movieRouter.get("/", (req, res) => {
   limit = parseInt(limit);
   //shallow copy
   let filteredMovies = [...movies];
+
+  //keyword sort
   if (keyword) {
     filteredMovies = filteredMovies.filter((movie) => {
       const insensitiveTitle = movie.title.toLowerCase();
@@ -61,6 +63,12 @@ movieRouter.get("/", (req, res) => {
   } else if (sort === "-rating") {
     filteredMovies.sort((a, b) => b.averageRating - a.averageRating);
   }
+
+  //pagination
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  filteredMovies = filteredMovies.slice(startIndex, endIndex);
 
   res.json(filteredMovies);
 });
