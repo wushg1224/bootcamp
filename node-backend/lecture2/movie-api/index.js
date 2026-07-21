@@ -143,6 +143,22 @@ movieRouter.put("/:id", (req, res) => {
   res.json(movie);
 });
 
+//delete movie
+movieRouter.delete("/:id", (req, res) => {
+  const movieIndex = movies.findIndex(
+    (movie) => movie.id === parseInt(req.params.id),
+  );
+  //if not found
+  if (movieIndex === -1) {
+    res.status(404).jsono({
+      message: "Movie not found",
+    });
+    return;
+  }
+  //if found
+  movies.splice(movieIndex, 1);
+  res.sendStatus(204);
+});
 app.listen(3000, () => {
   console.log("listening on 3000");
 });
