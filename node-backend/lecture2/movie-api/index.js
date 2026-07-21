@@ -18,7 +18,18 @@ const movies = [
     description: "A skilled thief steals secrets from dreams.",
     types: ["Sci-Fi"],
     averageRating: 4.5,
-    reviews: [{}],
+    reviews: [
+      {
+        id: 1,
+        content: "amazing movie",
+        rating: "5",
+      },
+      {
+        id: 2,
+        content: "amazing movie",
+        rating: "4",
+      },
+    ],
   },
   {
     id: 1,
@@ -159,6 +170,50 @@ movieRouter.delete("/:id", (req, res) => {
   movies.splice(movieIndex, 1);
   res.sendStatus(204);
 });
+
+//create reviews
+movieRouter.post("/:id/reviews", (req, res) => {
+  //find the movie first
+  const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
+  //if no found
+  if (!movie) {
+    res.status(404).json({
+      message: "movie not found",
+    });
+    return;
+  }
+  //if found
+  const { content, rating } = req.body;
+  //validation
+  if (!content || !rating || (rating < 1) | (rating > 5)) {
+    res.status(400).json({
+      message: "content is required and rating is between 1-5",
+    });
+    return;
+  }
+  //create new review
+  const newReview = {
+    id: nextId++,
+    content,
+    rating,
+  };
+
+  movie.reviews.push(newReview);
+
+  //get average review
+  movie.averageRating = parseFloat(
+    (
+      movie.reviews.reduce((sum, review) => sum + review.rating, 0) /
+      movie.reviews.length
+    ).toFixed(2),
+  );
+
+  res.status(201).json(newReview);
+});
+
+//get reviews
+movieRouter.get("/:id/reviews", (req, res) => {});
+
 app.listen(3000, () => {
   console.log("listening on 3000");
 });
