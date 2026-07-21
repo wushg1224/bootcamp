@@ -57,6 +57,7 @@ movieRouter.get("/", (req, res) => {
     });
   }
 
+  //sort by testing a name like bla to write code for filtering
   if (bla) {
     filteredMovies = filteredMovies.filter((movie) => {
       const insensitiveDescrition = movie.description.toLowerCase();
@@ -110,6 +111,35 @@ movieRouter.get("/:id", (req, res) => {
     });
     return;
   }
+  res.json(movie);
+});
+
+//update movie
+movieRouter.put("/:id", (req, res) => {
+  const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
+  if (!movie) {
+    res.status(404).json({
+      message: "movie not found",
+    });
+    return;
+  }
+  //partial updates
+  const { title, description, types } = req.body;
+  if (title) {
+    movie.title = title;
+  }
+  if (description) {
+    movie.description = description;
+  }
+
+  if (types) {
+    if (!Array.isArray(types) || types.length === 0) {
+      res.status(400).json({ message: "Types must be an array" });
+      return;
+    }
+    movie.types = types;
+  }
+
   res.json(movie);
 });
 
