@@ -20,14 +20,14 @@ const movies = [
     averageRating: 4.5,
     reviews: [
       {
-        id: 1,
+        id: 0,
         content: "amazing movie",
-        rating: "5",
+        rating: 5,
       },
       {
-        id: 2,
+        id: 1,
         content: "amazing movie",
-        rating: "4",
+        rating: 4,
       },
     ],
   },
