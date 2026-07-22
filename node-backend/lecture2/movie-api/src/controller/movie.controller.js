@@ -1,15 +1,3 @@
-const express = require("express");
-const app = express();
-
-// express can parse json File
-app.use(express.json());
-app.use(cors);
-
-const movieRouter = express.Router();
-
-//router mounting
-app.use("/v1/movies", movieRouter);
-
 //temparory database only exits when server start
 const movies = [
   {
@@ -42,11 +30,8 @@ const movies = [
 ];
 let nextId = 2;
 
-//for id generate can use library like uuid and nanoid
-
-// test on interface make sure it is working
-//route inside a router is relative to where the router is mounted
-movieRouter.get("/", (req, res) => {
+//getAllmovies
+const getAllmovies = (req, res) => {
   console.log("query:", req.query);
   console.log("next");
   let { keyword, sort, page = 1, limit = 10, bla } = req.query;
@@ -90,10 +75,10 @@ movieRouter.get("/", (req, res) => {
   filteredMovies = filteredMovies.slice(startIndex, endIndex);
 
   res.json(filteredMovies);
-});
+};
 
-//post --create
-movieRouter.post("/", (req, res) => {
+//createMovie
+const createMovie = (req, res) => {
   const { title, description, types } = req.body;
   //data validation
   if (!title || !description || !Array.isArray(types) || types.length === 0) {
@@ -112,9 +97,9 @@ movieRouter.post("/", (req, res) => {
   };
   movies.push(movie);
   res.status(201).json(movie);
-});
-//get by id
-movieRouter.get("/:id", (req, res) => {
+};
+//getMovieByID
+const getMovieById = (req, res) => {
   const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
   if (!movie) {
     res.status(404).json({
@@ -123,10 +108,10 @@ movieRouter.get("/:id", (req, res) => {
     return;
   }
   res.json(movie);
-});
+};
 
-//update movie
-movieRouter.put("/:id", (req, res) => {
+//updateMovie
+const updateMovieById = (req, res) => {
   const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
   if (!movie) {
     res.status(404).json({
@@ -152,10 +137,10 @@ movieRouter.put("/:id", (req, res) => {
   }
 
   res.json(movie);
-});
+};
 
-//delete movie
-movieRouter.delete("/:id", (req, res) => {
+//deleteMovieById
+const deleteMovieById = (req, res) => {
   const movieIndex = movies.findIndex(
     (movie) => movie.id === parseInt(req.params.id),
   );
@@ -169,10 +154,10 @@ movieRouter.delete("/:id", (req, res) => {
   //if found
   movies.splice(movieIndex, 1);
   res.sendStatus(204);
-});
+};
 
-//create reviews
-movieRouter.post("/:id/reviews", (req, res) => {
+//createReview
+const createReview = (req, res) => {
   //find the movie first
   const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
   //if no found
@@ -209,10 +194,9 @@ movieRouter.post("/:id/reviews", (req, res) => {
   );
 
   res.status(201).json(newReview);
-});
-
-//get reviews
-movieRouter.get("/:id/reviews", (req, res) => {
+};
+//getReviews
+const getReviews = (req, res) => {
   //find the movie first
   const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
   if (!movie) {
@@ -220,9 +204,15 @@ movieRouter.get("/:id/reviews", (req, res) => {
     return;
   }
   res.json(movie.reviews);
-});
+};
 
-//port watching
-app.listen(3000, () => {
-  console.log("listening on 3000");
-});
+//export
+module.exports = {
+  getAllmovies,
+  createMovie,
+  getMovieById,
+  updateMovieById,
+  deleteMovieById,
+  createReview,
+  getReviews,
+};
