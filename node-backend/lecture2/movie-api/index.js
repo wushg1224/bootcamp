@@ -200,7 +200,7 @@ movieRouter.post("/:id/reviews", (req, res) => {
 
   movie.reviews.push(newReview);
 
-  //get average review
+  //average rating
   movie.averageRating = parseFloat(
     (
       movie.reviews.reduce((sum, review) => sum + review.rating, 0) /
@@ -212,8 +212,17 @@ movieRouter.post("/:id/reviews", (req, res) => {
 });
 
 //get reviews
-movieRouter.get("/:id/reviews", (req, res) => {});
+movieRouter.get("/:id/reviews", (req, res) => {
+  //find the movie first
+  const movie = movies.find((movie) => movie.id === parseInt(req.params.id));
+  if (!movie) {
+    res.status(404).json({ message: "movie not found" });
+    return;
+  }
+  res.json(movie.reviews);
+});
 
+//port watching
 app.listen(3000, () => {
   console.log("listening on 3000");
 });
