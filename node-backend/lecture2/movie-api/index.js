@@ -4,6 +4,7 @@ const app = express();
 
 // express can parse json File
 app.use(express.json());
+app.use(cors);
 
 const movieRouter = express.Router();
 
@@ -222,6 +223,13 @@ movieRouter.get("/:id/reviews", (req, res) => {
   res.json(movie.reviews);
 });
 
+function cors(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
+  next();
+}
 //port watching
 app.listen(3000, () => {
   console.log("listening on 3000");
